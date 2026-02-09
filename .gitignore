@@ -1,0 +1,25 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Next.js build output
+.next/
+out/
+
+# Dependencies
+node_modules/
+
+# Static files
+.DS_Store
+*.pem
+
+# Sensitive Environment Variables (CRITICAL)
+.env
+.env.local
+.env.production
+.env.development
+.env.*.local
+
+# TypeScript cache
+*.tsbuildinfo

@@ -1,0 +1,891 @@
+"use client";
+
+import {
+  Box,
+  Flex,
+  Text,
+  Button,
+  VStack,
+  Image,
+  Input,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { useMemo, useState, useEffect } from "react";
+import { FaTimes } from "react-icons/fa";
+import { useRegisterMutation } from "@/features/auth/api/register";
+import { useLoginMutation } from "@/features/auth/api/login";
+import { toast } from "sonner";
+import { useForm, type Resolver } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+
+// Use a structural type to avoid declaration conflicts across files
+
+interface ProfileAuthProps {
+  isModal?: boolean;
+}
+
+type FormValues = {
+  username: string;
+  password: string;
+  displayName?: string;
+  email?: string;
+};
+
+const LoginSchema = z.object({
+  username: z.string().min(1, "Username is required"),
+  password: z.string().min(1, "Password is required"),
+});
+
+const SignUpSchema = z.object({
+  username: z.string().min(3, "Username must be at least 3 characters"),
+  displayName: z.string().min(2, "Display name must be at least 2 characters"),
+  email: z.string().email("Enter a valid email"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+function AuthForm({
+  isLogin,
+  onSuccess,
+}: {
+  isLogin: boolean;
+  onSuccess?: () => void;
+}) {
+  const registerMutation = useRegisterMutation();
+  const loginMutation = useLoginMutation();
+
+  const resolver = useMemo<Resolver<FormValues>>(
+    () => zodResolver(isLogin ? LoginSchema : SignUpSchema) as unknown as Resolver<FormValues>,
+    [isLogin]
+  );
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver,
+    defaultValues: { username: "", password: "", displayName: "", email: "" },
+  });
+
+  useEffect(() => {
+    // reCAPTCHA temporarily disabled — script loading removed
+  }, []);
+
+  const onSubmit = (values: FormValues) => {
+    if (isLogin) {
+      loginMutation.mutate(
+        {
+          username: values.username || "",
+          password: values.password,
+        } as Parameters<typeof loginMutation.mutate>[0],
+        {
+          onSuccess: () => {
+            onSuccess?.();
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          },
+          onError: () => {
+            // handled globally
+          },
+        }
+      );
+      return;
+    }
+
+    registerMutation.mutate(
+      {
+        username: values.username || "",
+        displayName: values.displayName || "",
+        email: values.email || "",
+        password: values.password,
+      } as Parameters<typeof registerMutation.mutate>[0],
+      {
+        onSuccess: () => {
+          reset({
+            username: values.username,
+            password: "",
+            displayName: "",
+            email: values.email,
+          });
+          onSuccess?.();
+        },
+        onError: (err: unknown) => {
+          let message = "Registration failed";
+          if (axios.isAxiosError(err)) {
+            const data = err.response?.data;
+            if (data && typeof data === "object" && "message" in data) {
+              const maybeMsg = (data as { message?: string }).message;
+              if (maybeMsg) message = maybeMsg;
+            } else if (err.message) {
+              message = err.message;
+            }
+          } else if (err instanceof Error) {
+            message = err.message || message;
+          }
+          toast.error(message);
+        },
+      }
+    );
+  };
+
+  return (
+    <>
+      <VStack gap={2}>
+        <Text
+          fontSize={{ base: "4xl", md: "5xl" }}
+          fontWeight="bold"
+          color="#d80c19"
+          textAlign="center"
+          letterSpacing="tight"
+        >
+          {isLogin ? "Login" : "Sign Up"}
+        </Text>
+        <Box w="20" h="1" bg="#d80c19" />
+      </VStack>
+
+      <Box as="form" onSubmit={handleSubmit(onSubmit)}>
+        <VStack gap={6} align="stretch">
+          {!isLogin ? (
+            <>
+              <Box>
+                <Input
+                  placeholder="Username"
+                  bg="white"
+                  color="gray.800"
+                  border="none"
+                  borderRadius="lg"
+                  px={6}
+                  py={5}
+                  fontSize="md"
+                  _placeholder={{ color: "gray.500" }}
+                  _focus={{
+                    boxShadow: "0 0 0 3px rgba(216, 12, 25, 0.2)",
+                    outline: "none",
+                    transform: "translateY(-2px)",
+                  }}
+                  _hover={{
+                    transform: "translateY(-1px)",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                  }}
+                  transition="all 0.3s ease"
+                  {...register("username")}
+                />
+                {errors.username && (
+                  <Text color="#d80c19" fontSize="sm" mt={2}>
+                    {errors.username.message as string}
+                  </Text>
+                )}
+              </Box>
+              <Box>
+                <Input
+                  placeholder="Display name"
+                  bg="white"
+                  color="gray.800"
+                  border="none"
+                  borderRadius="lg"
+                  px={6}
+                  py={5}
+                  fontSize="md"
+                  _placeholder={{ color: "gray.500" }}
+                  _focus={{
+                    boxShadow: "0 0 0 3px rgba(216, 12, 25, 0.2)",
+                    outline: "none",
+                    transform: "translateY(-2px)",
+                  }}
+                  _hover={{
+                    transform: "translateY(-1px)",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                  }}
+                  transition="all 0.3s ease"
+                  {...register("displayName")}
+                />
+                {errors.displayName && (
+                  <Text color="#d80c19" fontSize="sm" mt={2}>
+                    {errors.displayName.message as string}
+                  </Text>
+                )}
+              </Box>
+              <Box>
+                <Input
+                  type="email"
+                  placeholder="Email"
+                  bg="white"
+                  color="gray.800"
+                  border="none"
+                  borderRadius="lg"
+                  px={6}
+                  py={5}
+                  fontSize="md"
+                  _placeholder={{ color: "gray.500" }}
+                  _focus={{
+                    boxShadow: "0 0 0 3px rgba(216, 12, 25, 0.2)",
+                    outline: "none",
+                    transform: "translateY(-2px)",
+                  }}
+                  _hover={{
+                    transform: "translateY(-1px)",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                  }}
+                  transition="all 0.3s ease"
+                  {...register("email")}
+                />
+                {errors.email && (
+                  <Text color="#d80c19" fontSize="sm" mt={2}>
+                    {errors.email.message as string}
+                  </Text>
+                )}
+              </Box>
+            </>
+          ) : (
+            <>
+              <Box>
+                <Input
+                  placeholder="Username"
+                  bg="white"
+                  color="gray.800"
+                  border="none"
+                  borderRadius="lg"
+                  px={6}
+                  py={5}
+                  fontSize="md"
+                  _placeholder={{ color: "gray.500" }}
+                  _focus={{
+                    boxShadow: "0 0 0 3px rgba(216, 12, 25, 0.2)",
+                    outline: "none",
+                    transform: "translateY(-2px)",
+                  }}
+                  _hover={{
+                    transform: "translateY(-1px)",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                  }}
+                  transition="all 0.3s ease"
+                  {...register("username")}
+                />
+                {errors.username && (
+                  <Text color="#d80c19" fontSize="sm" mt={2}>
+                    {errors.username.message as string}
+                  </Text>
+                )}
+              </Box>
+            </>
+          )}
+
+          <Box>
+            <Input
+              type="password"
+              placeholder="Password"
+              bg="white"
+              color="gray.800"
+              border="none"
+              borderRadius="lg"
+              px={6}
+              py={5}
+              fontSize="md"
+              _placeholder={{ color: "gray.500" }}
+              _focus={{
+                boxShadow: "0 0 0 3px rgba(216, 12, 25, 0.2)",
+                outline: "none",
+                transform: "translateY(-2px)",
+              }}
+              _hover={{
+                transform: "translateY(-1px)",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+              }}
+              transition="all 0.3s ease"
+              {...register("password")}
+            />
+            {errors.password && (
+              <Text color="#d80c19" fontSize="sm" mt={2}>
+                {errors.password.message as string}
+              </Text>
+            )}
+          </Box>
+
+          <Button
+            bg="#d80c19"
+            color="white"
+            _hover={{
+              bg: "#b30915",
+              transform: "translateY(-2px)",
+              boxShadow: "0 8px 25px rgba(216, 12, 25, 0.3)",
+            }}
+            size="lg"
+            py={6}
+            fontSize="lg"
+            fontWeight="600"
+            borderRadius="lg"
+            transition="all 0.3s ease"
+            w="full"
+            textTransform="uppercase"
+            letterSpacing="wide"
+            loading={isLogin ? loginMutation.isPending : registerMutation.isPending}
+            type="submit"
+          >
+            {isLogin ? "Log In" : "Sign Up"}
+          </Button>
+
+          {isLogin ? (
+            <Text color="white" fontSize="sm" opacity="0.8" textAlign="center">
+              New here? Switch to Sign Up above.
+            </Text>
+          ) : (
+            <Text color="white" fontSize="sm" opacity="0.8" textAlign="center">
+              Already registered? Switch to Login below.
+            </Text>
+          )}
+        </VStack>
+      </Box>
+    </>
+  );
+}
+
+const ProfileAuth = ({ isModal = false }: ProfileAuthProps) => {
+  const [isLogin, setIsLogin] = useState(true);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const { open, onOpen, onClose } = useDisclosure();
+
+  if (!isModal) {
+    return (
+      <Box as="section" minH="100vh" bg="black">
+        <Flex direction={{ base: "column", lg: "row" }} h="full">
+          <Box flex="1" position="relative" overflow="hidden">
+            <Image
+              src="/contacthero.jpg"
+              alt="S-Twins Building and Car"
+              w="full"
+              h="full"
+              objectFit="cover"
+              objectPosition="center"
+              filter="brightness(0.8) contrast(1.1)"
+            />
+            <Box
+              position="absolute"
+              top="0"
+              left="0"
+              right="0"
+              bottom="0"
+              bg="linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.4) 100%)"
+            />
+          </Box>
+
+          <Box
+            flex="1"
+            bg="black"
+            p={{ base: 8, md: 12, lg: 16 }}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            position="relative"
+          >
+            <Box
+              position="absolute"
+              top="0"
+              left="0"
+              right="0"
+              bottom="0"
+              opacity="0.05"
+              bg="radial-gradient(circle at 20% 80%, #d80c19 0%, transparent 50%), radial-gradient(circle at 80% 20%, #d80c19 0%, transparent 50%)"
+            />
+
+            <VStack
+              align="stretch"
+              gap={8}
+              w="full"
+              maxW="450px"
+              position="relative"
+              zIndex={1}
+            >
+              {showForgotPassword ? (
+                <>
+                  <VStack gap={2}>
+                    <Text
+                      fontSize={{ base: "4xl", md: "5xl" }}
+                      fontWeight="bold"
+                      color="#d80c19"
+                      textAlign="center"
+                      letterSpacing="tight"
+                    >
+                      LOST PASSWORD
+                    </Text>
+                    <Box w="20" h="1" bg="#d80c19" />
+                  </VStack>
+                  <Text
+                    color="white"
+                    fontSize="md"
+                    textAlign="center"
+                    opacity="0.9"
+                    lineHeight="1.6"
+                  >
+                    Lost your password? Please enter your username or email
+                    address. You will receive a link to create a new password
+                    via email.
+                  </Text>
+                  <VStack gap={6} align="stretch">
+                    <Box>
+                      <Text color="white" fontSize="sm" fontWeight="500" mb={2}>
+                        Username or email *
+                      </Text>
+                      <Input
+                        placeholder="Enter username or email"
+                        bg="white"
+                        color="gray.800"
+                        border="1px solid"
+                        borderColor="gray.300"
+                        borderRadius="lg"
+                        px={6}
+                        py={5}
+                        fontSize="md"
+                        _placeholder={{ color: "gray.500" }}
+                        _focus={{
+                          borderColor: "#d80c19",
+                          boxShadow: "0 0 0 3px rgba(216, 12, 25, 0.2)",
+                          outline: "none",
+                        }}
+                        _hover={{ borderColor: "gray.400" }}
+                        transition="all 0.3s ease"
+                      />
+                    </Box>
+                    <Box
+                      bg="white"
+                      border="1px solid"
+                      borderColor="gray.300"
+                      borderRadius="md"
+                      p={4}
+                    >
+                      <Text color="gray.700" fontSize="sm">
+                        reCAPTCHA temporarily disabled
+                      </Text>
+                    </Box>
+                    <Button
+                      bg="#d80c19"
+                      color="white"
+                      _hover={{
+                        bg: "#b30915",
+                        transform: "translateY(-2px)",
+                        boxShadow: "0 8px 25px rgba(216, 12, 25, 0.3)",
+                      }}
+                      size="lg"
+                      py={6}
+                      fontSize="lg"
+                      fontWeight="600"
+                      borderRadius="lg"
+                      transition="all 0.3s ease"
+                      w="full"
+                      textTransform="uppercase"
+                      letterSpacing="wide"
+                    >
+                      Reset Password
+                    </Button>
+                  </VStack>
+                  <VStack gap={4} align="center" pt={4}>
+                    <Button
+                      bg="transparent"
+                      color="white"
+                      border="2px solid"
+                      borderColor="white"
+                      _hover={{
+                        bg: "white",
+                        color: "black",
+                        transform: "translateY(-2px)",
+                      }}
+                      size="md"
+                      px={8}
+                      py={3}
+                      fontSize="md"
+                      fontWeight="600"
+                      borderRadius="lg"
+                      transition="all 0.3s ease"
+                      onClick={() => setShowForgotPassword(false)}
+                    >
+                      Back to Login
+                    </Button>
+                  </VStack>
+                </>
+              ) : (
+                <>
+                  <AuthForm
+                    isLogin={isLogin}
+                    onSuccess={() => setIsLogin(true)}
+                  />
+                  <VStack gap={6} align="center" pt={4}>
+                    <Text
+                      color="white"
+                      fontSize="md"
+                      textAlign="center"
+                      opacity="0.9"
+                    >
+                      {isLogin ? "Not a member?" : "Already have an account?"}
+                    </Text>
+                    <Button
+                      bg="transparent"
+                      color="#d80c19"
+                      border="2px solid"
+                      borderColor="#d80c19"
+                      _hover={{
+                        bg: "#d80c19",
+                        color: "white",
+                        transform: "translateY(-2px)",
+                        boxShadow: "0 4px 15px rgba(216, 12, 25, 0.3)",
+                      }}
+                      size="md"
+                      px={8}
+                      py={3}
+                      fontSize="md"
+                      fontWeight="600"
+                      borderRadius="lg"
+                      transition="all 0.3s ease"
+                      onClick={() => setIsLogin(!isLogin)}
+                    >
+                      {isLogin ? "Sign Up" : "Login"}
+                    </Button>
+                    {isLogin && (
+                      <Text
+                        color="white"
+                        fontSize="sm"
+                        cursor="pointer"
+                        _hover={{
+                          color: "#d80c19",
+                          textDecoration: "underline",
+                        }}
+                        textAlign="center"
+                        opacity="0.8"
+                        transition="all 0.2s ease"
+                        onClick={() => setShowForgotPassword(true)}
+                      >
+                        Lost Password?
+                      </Text>
+                    )}
+                  </VStack>
+                </>
+              )}
+            </VStack>
+          </Box>
+        </Flex>
+      </Box>
+    );
+  }
+
+  return (
+    <>
+      <Button
+        onClick={onOpen}
+        bg="transparent"
+        color="white"
+        border="2px solid"
+        borderColor="white"
+        _hover={{ bg: "white", color: "black", transform: "translateY(-2px)" }}
+        size="md"
+        px={6}
+        py={3}
+        fontSize="md"
+        fontWeight="600"
+        borderRadius="lg"
+        transition="all 0.3s ease"
+      >
+        Profile
+      </Button>
+
+      {open && (
+        <Box
+          position="fixed"
+          top="0"
+          left="0"
+          right="0"
+          bottom="0"
+          bg="rgba(0, 0, 0, 0.8)"
+          zIndex={10000}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          p={4}
+        >
+          <Box
+            bg="black"
+            borderRadius="xl"
+            maxW="1200px"
+            w="full"
+            maxH="90vh"
+            overflow="hidden"
+            position="relative"
+            zIndex={10001}
+          >
+            <Button
+              position="absolute"
+              top={4}
+              right={4}
+              variant="ghost"
+              color="white"
+              _hover={{ bg: "rgba(255,255,255,0.1)" }}
+              onClick={onClose}
+              zIndex={10002}
+              size="lg"
+              fontSize="xl"
+              fontWeight="bold"
+              borderRadius="full"
+            >
+              <FaTimes />
+            </Button>
+
+            <Flex direction={{ base: "column", lg: "row" }} minH="600px">
+              <Box flex="1" position="relative" overflow="hidden" minH="400px">
+                <Image
+                  src="/contacthero.jpg"
+                  alt="S-Twins Building and Car"
+                  w="full"
+                  h="full"
+                  objectFit="cover"
+                  objectPosition="center"
+                  filter="brightness(0.8) contrast(1.1)"
+                />
+                <Box
+                  position="absolute"
+                  top="0"
+                  left="0"
+                  right="0"
+                  bottom="0"
+                  bg="linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.4) 100%)"
+                />
+                <Box
+                  position="absolute"
+                  top="50%"
+                  left="50%"
+                  transform="translate(-50%, -50%)"
+                  textAlign="center"
+                  color="white"
+                  textShadow="2px 2px 4px rgba(0,0,0,0.8)"
+                >
+                  <Text
+                    fontSize={{ base: "4xl", md: "6xl", lg: "8xl" }}
+                    fontWeight="bold"
+                    letterSpacing="tight"
+                    opacity="0.9"
+                  >
+                    S-TWINS
+                  </Text>
+                  <Text
+                    fontSize={{ base: "lg", md: "xl" }}
+                    mt={2}
+                    opacity="0.8"
+                  >
+                    Premium Auto Parts & Services
+                  </Text>
+                </Box>
+              </Box>
+
+              <Box
+                flex="1"
+                bg="black"
+                p={{ base: 8, md: 12, lg: 16 }}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                position="relative"
+                minH="400px"
+              >
+                <Box
+                  position="absolute"
+                  top="0"
+                  left="0"
+                  right="0"
+                  bottom="0"
+                  opacity="0.05"
+                  bg="radial-gradient(circle at 20% 80%, #d80c19 0%, transparent 50%), radial-gradient(circle at 80% 20%, #d80c19 0%, transparent 50%)"
+                />
+                <VStack
+                  align="stretch"
+                  gap={8}
+                  w="full"
+                  maxW="450px"
+                  position="relative"
+                  zIndex={1}
+                >
+                  {showForgotPassword ? (
+                    <>
+                      <VStack gap={2}>
+                        <Text
+                          fontSize={{ base: "4xl", md: "5xl" }}
+                          fontWeight="bold"
+                          color="#d80c19"
+                          textAlign="center"
+                          letterSpacing="tight"
+                        >
+                          LOST PASSWORD
+                        </Text>
+                        <Box w="20" h="1" bg="#d80c19" />
+                      </VStack>
+                      <Text
+                        color="white"
+                        fontSize="md"
+                        textAlign="center"
+                        opacity="0.9"
+                        lineHeight="1.6"
+                      >
+                        Lost your password? Please enter your username or email
+                        address. You will receive a link to create a new
+                        password via email.
+                      </Text>
+                      <VStack gap={6} align="stretch">
+                        <Box>
+                          <Text
+                            color="white"
+                            fontSize="sm"
+                            fontWeight="500"
+                            mb={2}
+                          >
+                            Username or email *
+                          </Text>
+                          <Input
+                            placeholder="Enter username or email"
+                            bg="white"
+                            color="gray.800"
+                            border="1px solid"
+                            borderColor="gray.300"
+                            borderRadius="lg"
+                            px={6}
+                            py={5}
+                            fontSize="md"
+                            _placeholder={{ color: "gray.500" }}
+                            _focus={{
+                              borderColor: "#d80c19",
+                              boxShadow: "0 0 0 3px rgba(216, 12, 25, 0.2)",
+                              outline: "none",
+                            }}
+                            _hover={{ borderColor: "gray.400" }}
+                            transition="all 0.3s ease"
+                          />
+                        </Box>
+                        <Box
+                          bg="white"
+                          border="1px solid"
+                          borderColor="gray.300"
+                          borderRadius="md"
+                          p={4}
+                          display="flex"
+                          alignItems="center"
+                          gap={3}
+                        >
+                          <Text color="gray.700" fontSize="sm">
+                            reCAPTCHA temporarily disabled
+                          </Text>
+                        </Box>
+                        <Button
+                          bg="#d80c19"
+                          color="white"
+                          _hover={{
+                            bg: "#b30915",
+                            transform: "translateY(-2px)",
+                            boxShadow: "0 8px 25px rgba(216, 12, 25, 0.3)",
+                          }}
+                          size="lg"
+                          py={6}
+                          fontSize="lg"
+                          fontWeight="600"
+                          borderRadius="lg"
+                          transition="all 0.3s ease"
+                          w="full"
+                          textTransform="uppercase"
+                          letterSpacing="wide"
+                        >
+                          Reset Password
+                        </Button>
+                      </VStack>
+                      <VStack gap={4} align="center" pt={4}>
+                        <Button
+                          bg="transparent"
+                          color="white"
+                          border="2px solid"
+                          borderColor="white"
+                          _hover={{
+                            bg: "white",
+                            color: "black",
+                            transform: "translateY(-2px)",
+                          }}
+                          size="md"
+                          px={8}
+                          py={3}
+                          fontSize="md"
+                          fontWeight="600"
+                          borderRadius="lg"
+                          transition="all 0.3s ease"
+                          onClick={() => setShowForgotPassword(false)}
+                        >
+                          Back to Login
+                        </Button>
+                      </VStack>
+                    </>
+                  ) : (
+                    <>
+                      <AuthForm
+                        isLogin={isLogin}
+                        onSuccess={() => {
+                          setIsLogin(true);
+                        }}
+                      />
+                      <VStack gap={6} align="center" pt={4}>
+                        <Text
+                          color="white"
+                          fontSize="md"
+                          textAlign="center"
+                          opacity="0.9"
+                        >
+                          {isLogin
+                            ? "Not a member?"
+                            : "Already have an account?"}
+                        </Text>
+                        <Button
+                          bg="transparent"
+                          color="#d80c19"
+                          border="2px solid"
+                          borderColor="#d80c19"
+                          _hover={{
+                            bg: "#d80c19",
+                            color: "white",
+                            transform: "translateY(-2px)",
+                            boxShadow: "0 4px 15px rgba(216, 12, 25, 0.3)",
+                          }}
+                          size="md"
+                          px={8}
+                          py={3}
+                          fontSize="md"
+                          fontWeight="600"
+                          borderRadius="lg"
+                          transition="all 0.3s ease"
+                          onClick={() => setIsLogin(!isLogin)}
+                        >
+                          {isLogin ? "Sign Up" : "Login"}
+                        </Button>
+                        {isLogin && (
+                          <Text
+                            color="white"
+                            fontSize="sm"
+                            cursor="pointer"
+                            _hover={{
+                              color: "#d80c19",
+                              textDecoration: "underline",
+                            }}
+                            textAlign="center"
+                            opacity="0.8"
+                            transition="all 0.2s ease"
+                            onClick={() => setShowForgotPassword(true)}
+                          >
+                            Lost Password?
+                          </Text>
+                        )}
+                      </VStack>
+                    </>
+                  )}
+                </VStack>
+              </Box>
+            </Flex>
+          </Box>
+        </Box>
+      )}
+    </>
+  );
+};
+
+export default ProfileAuth;

@@ -1,0 +1,194 @@
+import { axiosInstance } from "./instance";
+
+export interface CompleteOrderAddress {
+  street: string;
+  apartment?: string;
+  city: string;
+  state: string;
+  postcode: string;
+  country: string;
+}
+
+export interface CompleteOrderCustomer {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  address: CompleteOrderAddress;
+}
+
+export interface CompleteOrderItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  inventoryId?: string;
+  image?: string;
+}
+
+export interface CompleteOrderRequest {
+  paymentIntentId: string;
+  customer: CompleteOrderCustomer;
+  items: CompleteOrderItem[];
+  totalAmount: number;
+  shippingMethod?: string;
+  shippingCost?: number;
+}
+
+export interface CompleteOrderResponse {
+  success: boolean;
+  message: string;
+  paymentIntentId: string;
+  externalOrderReference?: string;
+  externalSubmissionSuccess: boolean;
+  error?: string;
+}
+
+export const completeOrder = async (
+  orderData: CompleteOrderRequest
+): Promise<CompleteOrderResponse> => {
+  const response = await axiosInstance.post("orders/complete", orderData);
+  return response.data;
+};
+
+export const getOrderDetails = async (paymentIntentId: string) => {
+  const response = await axiosInstance.get(
+    `orders/${paymentIntentId}/details`
+  );
+  return response.data;
+};
+
+export const getOrderStatus = async (paymentIntentId: string) => {
+  const response = await axiosInstance.get(`orders/${paymentIntentId}`);
+  return response.data;
+};
+
+export interface Order {
+  id: string;
+  paymentIntentId: string;
+  customerEmail: string;
+  customerName: string;
+  customerPhone?: string;
+  customerAddress?: string;
+  shippingAddress?: string;
+  shippingMethod?: string;
+  shippingCost: number;
+  shippingService?: string;
+  shippingCarrier?: string;
+  trackingNumber?: string;
+  externalOrderReference?: string;
+  externalOrderSystem?: string;
+  externalOrderStatus?: string;
+  itemsJson: CompleteOrderItem[];
+  subtotal: number;
+  tax: number;
+  shipping: number;
+  total: number;
+  currency: string;
+  status:
+    | "pending"
+    | "paid"
+    | "confirmed"
+    | "preparing"
+    | "ready_to_ship"
+    | "shipped"
+    | "delivered"
+    | "failed"
+    | "cancelled"
+    | "refunded";
+  createdAt: string;
+  updatedAt: string;
+  shippedAt?: string;
+  deliveredAt?: string;
+}
+
+export interface OrdersResponse {
+  orders: Order[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
+
+export const getAllOrders = async (
+  page: number = 1,
+  limit: number = 50
+): Promise<OrdersResponse> => {
+  const response = await axiosInstance.get(
+    `orders?page=${page}&limit=${limit}`
+  );
+  return response.data;
+};
+
+export const getOrdersByStatus = async (
+  status: string,
+  page: number = 1,
+  limit: number = 50
+): Promise<OrdersResponse> => {
+  const response = await axiosInstance.get(
+    `orders/status/${encodeURIComponent(status)}?page=${page}&limit=${limit}`
+  );
+  return response.data;
+};
+
+export const updateOrderStatus = async (
+  paymentIntentId: string,
+  status: string
+) => {
+  const response = await axiosInstance.patch(
+    `orders/${paymentIntentId}/status`,
+    { status }
+  );
+  return response.data;
+};
+
+export const updateOrderShipping = async (
+  paymentIntentId: string,
+  shippingDetails: {
+    address?: string;
+    method?: string;
+    cost?: number;
+    service?: string;
+    carrier?: string;
+    trackingNumber?: string;
+  }
+) => {
+  const response = await axiosInstance.patch(
+    `orders/${paymentIntentId}/shipping`,
+    shippingDetails
+  );
+  return response.data;
+};
+
+export const updateOrder = async (
+  paymentIntentId: string,
+  updateData: Partial<Order>
+) => {
+  const response = await axiosInstance.patch(
+    `orders/${paymentIntentId}`,
+    updateData
+  );
+  return response.data;
+};
+
+// ---- listOrdersAdmin (axiosInstance version)
+export const listOrdersAdmin = async (qs: string) => {
+  const query =
+    qs && qs.trim().length > 0
+      ? (qs.startsWith("?") ? qs : `?${qs}`)
+      : "?page=1&limit=50";
+
+  const response = await axiosInstance.get(`orders${query}`);
+  return response.data;
+};
+
+// ---- compatibility aliases for hooks expecting *Admin names
+export {
+  getAllOrders as getAllOrdersAdmin,
+  getOrdersByStatus as getOrdersByStatusAdmin,
+  updateOrderStatus as updateOrderStatusAdmin,
+  updateOrderShipping as updateOrderShippingAdmin,
+  updateOrder as updateOrderAdmin,
+};
