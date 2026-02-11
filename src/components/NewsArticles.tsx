@@ -163,7 +163,7 @@ const NewsArticles = () => {
           >
             <VStack align={{ base: "center", lg: "flex-start" }} gap={6}>
               <Text
-                as="h2"
+                as="h1"
                 fontSize={{ base: "2xl", md: "5xl", lg: "60px" }}
                 fontWeight="bold"
                 lineHeight="0.9"
@@ -173,7 +173,7 @@ const NewsArticles = () => {
                 fontFamily={heroFont}
                 whiteSpace={{ base: "normal", md: "nowrap" }}
               >
-                NEWS & ARTICLES
+                News & Articles
               </Text>
             </VStack>
           </Box>
@@ -187,6 +187,7 @@ const NewsArticles = () => {
             {/* Section Title */}
             <Box textAlign={{ base: "center", lg: "left" }}>
               <Text
+                as="h2"
                 fontSize={{ base: "3xl", md: "4xl", lg: "3xl" }}
                 fontWeight="bold"
                 color="white"
@@ -326,8 +327,7 @@ const NewsArticles = () => {
                 lineHeight="1.7"
                 textAlign={{ base: "center", lg: "left" }}
               >
-                Subscribe to be the first to learn about all our latest news and
-                offers.
+                Subscribe to be the first to learn about our latest news and offers
               </Text>
 
               <VStack gap={6} w="full">
