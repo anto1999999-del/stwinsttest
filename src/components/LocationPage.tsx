@@ -112,7 +112,8 @@ const LocationPage = ({ slug }: LocationPageProps) => {
                 lineHeight="1.1"
                 textTransform="uppercase"
               >
-                Used Car Parts & Wreckers {locationName}
+                Used Car Parts & Wreckers{" "}
+                <Box as="span" color="#d80c19">{locationName}</Box>
               </Text>
             </VStack>
 

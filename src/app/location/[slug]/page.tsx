@@ -10,27 +10,15 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const formattedLocation = slug.charAt(0).toUpperCase() + slug.slice(1).toLowerCase();
-  
+  const base = "https://stwins.com.au";
+  const canonical = `${base}/location/${slug}`;
+  const title = slug === "smithfield" ? "Smithfield Location - S-Twins" : slug === "tuggerah" ? "Tuggerah Location - S-Twins" : `Location ${slug} - S-Twins`;
   return {
-    title: `${formattedLocation} Location - S-Twins Auto Parts`,
-    description: `Visit S-Twins ${formattedLocation} location for premium car parts. Quality used auto parts with warranty and expert service.`,
-    alternates: {
-      canonical: `https://stwins.com.au/location/${slug}`,
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-      },
-    },
-    openGraph: {
-      title: `${formattedLocation} Location - S-Twins Auto Parts`,
-      description: `Visit S-Twins ${formattedLocation} location for premium car parts and expert service.`,
-      url: `https://stwins.com.au/location/${slug}`,
-    },
+    title,
+    description: `S-Twins Auto Parts ${slug} location. Quality used car parts, expert help. Visit or get Australia-wide delivery.`,
+    alternates: { canonical },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+    openGraph: { title, url: canonical, type: "website" },
   };
 }
 

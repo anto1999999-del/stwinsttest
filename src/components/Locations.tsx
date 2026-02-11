@@ -213,7 +213,7 @@ const Locations = () => {
                 lineHeight="1.1"
                 textTransform="uppercase"
               >
-                Discover Our Location Services
+                Our Locations
               </Text>
               <Text
                 fontSize={{ base: "lg", md: "xl" }}
