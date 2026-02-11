@@ -78,7 +78,7 @@ const WorkshopHero = () => {
                 as="h1"
                 fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
                 fontWeight="700"
-                lineHeight="75px"
+                lineHeight="1.1"
                 textAlign={{ base: "center", lg: "left" }}
                 fontFamily={heroFont}
                 textTransform="uppercase"
@@ -109,7 +109,6 @@ const WorkshopHero = () => {
             >
               <Box textAlign={{ base: "center", lg: "left" }}>
                 <Text
-                  as="h2"
                   fontSize={{ base: "4xl", md: "5xl", lg: "5xl" }}
                   fontWeight="bold"
                   lineHeight="1.1"
@@ -194,7 +193,6 @@ const WorkshopHero = () => {
             >
               <Box textAlign={{ base: "center", lg: "left" }}>
                 <Text
-                  as="h2"
                   fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
                   fontWeight="bold"
                   color="#d80c19"
