@@ -1,0 +1,13 @@
+{
+  "app": {
+    "[project]/src/app/_not-found/page": [
+      "static/media/MADE_Outer_Sans_Alt_Black-s.p.7392657f.otf"
+    ],
+    "[project]/src/app/page": [
+      "static/media/MADE_Outer_Sans_Alt_Black-s.p.7392657f.otf"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pages": {},
+  "pagesUsingSizeAdjust": false
+}

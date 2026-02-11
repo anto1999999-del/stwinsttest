@@ -213,17 +213,7 @@ const Locations = () => {
                 lineHeight="1.1"
                 textTransform="uppercase"
               >
-                Discover Our Location
-              </Text>
-              <Text
-                as="h1"
-                fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
-                fontWeight="bold"
-                lineHeight="1.1"
-                textTransform="uppercase"
-                color="#d80c19"
-              >
-                Services
+                Discover Our Location Services
               </Text>
               <Text
                 fontSize={{ base: "lg", md: "xl" }}

@@ -112,17 +112,7 @@ const LocationPage = ({ slug }: LocationPageProps) => {
                 lineHeight="1.1"
                 textTransform="uppercase"
               >
-                Used Car Parts & Wreckers Artarmon
-              </Text>
-              <Text
-                as="h1"
-                fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
-                fontWeight="bold"
-                lineHeight="1.1"
-                textTransform="uppercase"
-                color="#d80c19"
-              >
-                {locationName}
+                Used Car Parts & Wreckers {locationName}
               </Text>
             </VStack>
 

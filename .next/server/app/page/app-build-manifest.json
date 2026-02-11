@@ -1,0 +1,34 @@
+{
+  "pages": {
+    "/page": [
+      "static/chunks/node_modules_next_dist_8db7fb1f._.js",
+      "static/chunks/src_app_favicon_ico_mjs_007f7124._.js",
+      "static/chunks/src_app_09a5c472._.css",
+      "static/chunks/src_020f0c38._.js",
+      "static/chunks/node_modules_@chakra-ui_react_dist_esm_5f1b1e88._.js",
+      "static/chunks/node_modules_react-icons_lu_index_mjs_9c1f52d1._.js",
+      "static/chunks/node_modules_react-icons_fa_index_mjs_0459ff00._.js",
+      "static/chunks/node_modules_react-icons_lib_844c6c50._.js",
+      "static/chunks/node_modules_@tanstack_query-core_build_modern_aebcc7c0._.js",
+      "static/chunks/node_modules_@emotion_a705c981._.js",
+      "static/chunks/node_modules_@zag-js_cb081d41._.js",
+      "static/chunks/node_modules_@floating-ui_72928cc6._.js",
+      "static/chunks/node_modules_ede2340b._.js",
+      "static/chunks/src_app_layout_tsx_f8182b1e._.js",
+      "static/chunks/node_modules_next_dist_client_components_builtin_global-error_824bc759.js",
+      "static/chunks/node_modules_@react-google-maps_api_dist_esm_51061f40.js",
+      "static/chunks/src_3ff8ad69._.js",
+      "static/chunks/node_modules_83909e60._.js",
+      "static/chunks/src_app_page_tsx_824bc759._.js",
+      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_4e3b0bdd._.js",
+      "static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js",
+      "static/chunks/node_modules_next_dist_compiled_next-devtools_index_a9cb0712.js",
+      "static/chunks/node_modules_next_dist_compiled_5150ccfd._.js",
+      "static/chunks/node_modules_next_dist_client_cf1d9188._.js",
+      "static/chunks/node_modules_next_dist_b0daae9a._.js",
+      "static/chunks/4e2c9_@swc_helpers_cjs_2b52ba32._.js",
+      "static/chunks/_a0ff3932._.js",
+      "static/chunks/turbopack-_3fb52da9._.js"
+    ]
+  }
+}

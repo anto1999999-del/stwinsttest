@@ -1,0 +1,27 @@
+/* [project]/src/app/madeouter_8c55e198.module.css [app-client] (css) */
+@font-face {
+  font-family: madeOuter;
+  src: url("../media/MADE_Outer_Sans_Alt_Black-s.p.7392657f.otf") format("opentype");
+  font-display: swap;
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: madeOuter Fallback;
+  src: local(Arial);
+  ascent-override: 58.35%;
+  descent-override: 13.36%;
+  line-gap-override: 1.72%;
+  size-adjust: 174.46%;
+}
+
+.madeouter_8c55e198-module__HiO4-q__className {
+  font-family: madeOuter, madeOuter Fallback;
+}
+
+.madeouter_8c55e198-module__HiO4-q__variable {
+  --font-made-outer: "madeOuter", "madeOuter Fallback";
+}
+
+/*# sourceMappingURL=src_app_madeouter_8c55e198_module_css_bad6b30c._.single.css.map*/

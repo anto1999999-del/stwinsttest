@@ -1,0 +1,31 @@
+{
+  "devFiles": [],
+  "ampDevFiles": [],
+  "polyfillFiles": [],
+  "lowPriorityFiles": [],
+  "rootMainFiles": [],
+  "pages": {
+    "/_app": [
+      "static/chunks/node_modules_next_dist_compiled_next-devtools_index_5277ebc8.js",
+      "static/chunks/node_modules_next_dist_compiled_e019967a._.js",
+      "static/chunks/node_modules_next_dist_shared_lib_ffb1a49d._.js",
+      "static/chunks/node_modules_next_dist_client_d0aa886c._.js",
+      "static/chunks/node_modules_next_dist_b1fb42d2._.js",
+      "static/chunks/node_modules_react_e3593a73._.js",
+      "static/chunks/node_modules_react-dom_cjs_react-dom_development_2b5e0eb3.js",
+      "static/chunks/node_modules_react-dom_8a8085df._.js",
+      "static/chunks/node_modules_@tanstack_query-core_build_modern_8ce7321e._.js",
+      "static/chunks/node_modules_@chakra-ui_react_dist_esm_406fac8f._.js",
+      "static/chunks/node_modules_react-icons_lu_index_mjs_d645fb23._.js",
+      "static/chunks/node_modules_react-icons_lib_7cd2a28b._.js",
+      "static/chunks/node_modules_@emotion_0f82559b._.js",
+      "static/chunks/node_modules_@zag-js_1a6cbf63._.js",
+      "static/chunks/node_modules_@floating-ui_151682c1._.js",
+      "static/chunks/node_modules_44da0a32._.js",
+      "static/chunks/[root-of-the-server]__8a4ae04a._.js",
+      "static/chunks/src_pages__app_2da965e7._.js",
+      "static/chunks/turbopack-src_pages__app_c8a5cbc1._.js"
+    ]
+  },
+  "ampFirstPages": []
+}

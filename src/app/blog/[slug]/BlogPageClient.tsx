@@ -134,33 +134,7 @@ export default function BlogPageClient({ post }: BlogPageClientProps) {
                 letterSpacing="tight"
                 textAlign={{ base: "center", md: "left" }}
               >
-                3 QUESTIONS YOU NEED TO ASK
-              </Text>
-              <Text
-                as="h1"
-                fontSize={{ base: "xl", sm: "2xl", md: "3xl", lg: "4xl" }}
-                fontWeight="bold"
-                color="white"
-                lineHeight="1.1"
-                fontFamily={heroFont}
-                textTransform="uppercase"
-                letterSpacing="tight"
-                textAlign={{ base: "center", md: "left" }}
-              >
-                BEFORE BUYING RECYCLED CAR
-              </Text>
-              <Text
-                as="h1"
-                fontSize={{ base: "xl", sm: "2xl", md: "3xl", lg: "4xl" }}
-                fontWeight="bold"
-                color="white"
-                lineHeight="1.1"
-                fontFamily={heroFont}
-                textTransform="uppercase"
-                letterSpacing="tight"
-                textAlign={{ base: "center", md: "left" }}
-              >
-                PARTS ONLINE
+                3 QUESTIONS YOU NEED TO ASK BEFORE BUYING RECYCLED CAR PARTS ONLINE
               </Text>
             </VStack>
           </VStack>

@@ -1,0 +1,1 @@
+self.__NEXT_FONT_MANIFEST="{\n  \"app\": {\n    \"[project]/src/app/_not-found/page\": [\n      \"static/media/MADE_Outer_Sans_Alt_Black-s.p.7392657f.otf\"\n    ],\n    \"[project]/src/app/page\": [\n      \"static/media/MADE_Outer_Sans_Alt_Black-s.p.7392657f.otf\"\n    ]\n  },\n  \"appUsingSizeAdjust\": true,\n  \"pages\": {},\n  \"pagesUsingSizeAdjust\": false\n}"
