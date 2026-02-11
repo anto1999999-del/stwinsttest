@@ -89,7 +89,7 @@ const CarsHero = () => {
         <Box maxW="1400px" mx="auto" px={{ base: 6, md: 12, lg: 16 }}>
           <VStack align="start" bg="gray.900" p={6} borderRadius="md" gap={2}>
             <Text as="h1" fontSize="2xl" fontWeight="bold" color="red.400">
-              Browse Vehicles
+              Cars for Parts & Wrecking
             </Text>
             <Text color="gray.300">
               Showing page {pagination?.page ?? page}
