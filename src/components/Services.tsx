@@ -17,7 +17,7 @@ const Services = () => {
             {/* Title */}
             <Box textAlign={{ base: "center", lg: "left" }}>
               <Text
-                as="h1"
+                as="h2"
                 fontSize={{ base: "2xl", md: "3xl", lg: "3xl" }}
                 fontWeight="extrabold"
                 textTransform="uppercase"
@@ -73,7 +73,7 @@ const Services = () => {
             <Flex gap={6}>
               <Image src="/car-icon.jpg" alt="Car Icon" w="60px" h="60px" />
               <VStack align="flex-start" gap={0}>
-                <Text fontSize="xl" fontWeight="bold">
+                <Text as="h3" fontSize="xl" fontWeight="bold">
                   Over 100,000
                 </Text>
                 <Text fontSize="xl" fontWeight="bold">
@@ -86,7 +86,7 @@ const Services = () => {
             <Flex align="center" gap={6}>
               <Image src="/phone-icon.jpg" alt="Phone Icon" w="60px" h="60px" />
               <VStack align="flex-start" gap={0}>
-                <Text fontSize="xl" fontWeight="bold">
+                <Text as="h3" fontSize="xl" fontWeight="bold">
                   Professional
                 </Text>
                 <Text fontSize="xl" fontWeight="bold">
@@ -104,7 +104,7 @@ const Services = () => {
                 h="60px"
               />
               <VStack align="flex-start" gap={0}>
-                <Text fontSize="xl" fontWeight="bold">
+                <Text as="h3" fontSize="xl" fontWeight="bold">
                   Warranty included
                 </Text>
                 <Text fontSize="xl" fontWeight="bold">
@@ -117,7 +117,7 @@ const Services = () => {
             <Flex align="center" gap={6}>
               <Image src="/tool-icon.jpg" alt="Tool Icon" w="60px" h="60px" />
               <VStack align="flex-start" gap={0}>
-                <Text fontSize="xl" fontWeight="bold">
+                <Text as="h3" fontSize="xl" fontWeight="bold">
                   Referral Workshop
                 </Text>
                 <Text fontSize="xl" fontWeight="bold">
@@ -130,7 +130,7 @@ const Services = () => {
             <Flex align="center" gap={6}>
               <Image src="/truck-icon.jpg" alt="Truck Icon" w="60px" h="60px" />
               <VStack align="flex-start" gap={0}>
-                <Text fontSize="xl" fontWeight="bold">
+                <Text as="h3" fontSize="xl" fontWeight="bold">
                   Fast, Nationwide
                 </Text>
                 <Text fontSize="xl" fontWeight="bold">

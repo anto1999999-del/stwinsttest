@@ -305,7 +305,11 @@ const QuoteRequest = () => {
                 textTransform="uppercase"
                 lineHeight="1.1"
               >
-                CAN&apos;T FIND WHAT YOU&apos;RE LOOKING FOR?
+                CAN&apos;T FIND WHAT
+                <br />
+                YOU&apos;RE LOOKING
+                <br />
+                FOR?
               </Text>
               <Box
                 w="60%"
@@ -365,7 +369,7 @@ const QuoteRequest = () => {
           boxShadow="lg"
         >
           <VStack align="flex-start" gap={8} maxW="500px">
-            <Text as="h3" fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }} fontWeight="800" color="gray.800" mb={4}>
+            <Text fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }} fontWeight="800" color="gray.800" mb={4}>
               Request a FREE Part Quote
             </Text>
 

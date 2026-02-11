@@ -32,15 +32,15 @@ const Hero = () => {
         >
           <VStack align={{ base: "center", lg: "flex-start" }} gap={0}>
             <Text
-              as="h2"
+              as="h1"
               fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
               fontWeight="extrabold"
-              lineHeight="1"
+              lineHeight="1.1"
               mb={4}
               textAlign={{ base: "center", lg: "left" }}
               fontFamily={heroFont}
             >
-              RARE PARTS DELIVERED FAST
+              Rare Parts Delivered Fast
             </Text>
           </VStack>
           <Text

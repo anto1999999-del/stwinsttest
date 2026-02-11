@@ -74,6 +74,7 @@ const Footer = () => {
           <VStack align="flex-start" gap={6} flex="1">
             <Box position="relative">
               <Text
+                as="h3"
                 fontSize="xl"
                 fontWeight="700"
                 color="white"
@@ -138,6 +139,7 @@ const Footer = () => {
           <VStack align="flex-start" gap={6} flex="1">
             <Box position="relative">
               <Text
+                as="h3"
                 fontSize="xl"
                 fontWeight="700"
                 color="white"
@@ -219,6 +221,7 @@ const Footer = () => {
           <VStack align="flex-start" gap={6} flex="1">
             <Box position="relative">
               <Text
+                as="h3"
                 fontSize="xl"
                 fontWeight="700"
                 color="white"
@@ -286,6 +289,7 @@ const Footer = () => {
           <VStack align="flex-start" gap={6} flex="1">
             <Box position="relative">
               <Text
+                as="h3"
                 fontSize="xl"
                 fontWeight="700"
                 color="white"
@@ -368,6 +372,7 @@ const Footer = () => {
           <VStack align="flex-start" gap={6} flex="1">
             <Box position="relative">
               <Text
+                as="h3"
                 fontSize="xl"
                 fontWeight="700"
                 color="white"
