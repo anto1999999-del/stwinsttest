@@ -1,4 +1,5 @@
 import BlogPageClient from "./BlogPageClient";
+import type { Metadata } from "next";
 
 interface BlogPost {
   id: string;
@@ -62,8 +63,6 @@ const blogPosts: { [key: string]: BlogPost } = {
   },
 };
 
-import type { Metadata } from "next";
-
 interface BlogPageProps {
   params: Promise<{
     slug: string;
@@ -73,38 +72,18 @@ interface BlogPageProps {
 export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = blogPosts[slug];
-  
-  if (!post) {
-    return {
-      title: "Blog Post Not Found - S-Twins",
-      robots: {
-        index: false,
-        follow: false,
-      },
-    };
-  }
-
+  const base = "https://stwins.com.au";
+  const canonical = `${base}/blog/${slug}`;
+  const title = post ? `${post.title} | S-Twins` : "Blog - S-Twins";
+  const description = post
+    ? `S-Twins blog: ${post.title}. Quality recycled car parts and automotive tips.`
+    : "S-Twins blog and articles on used car parts.";
   return {
-    title: `${post.title} - S-Twins`,
-    description: post.content.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim().substring(0, 160),
-    alternates: {
-      canonical: `https://stwins.com.au/blog/${slug}`,
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-      },
-    },
-    openGraph: {
-      title: `${post.title} - S-Twins`,
-      description: post.content.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim().substring(0, 160),
-      url: `https://stwins.com.au/blog/${slug}`,
-      type: "article",
-      images: post.image ? [{ url: post.image }] : undefined,
-    },
+    title,
+    description,
+    alternates: { canonical },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+    openGraph: { title, description, url: canonical, type: "article" },
   };
 }
 

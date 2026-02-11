@@ -117,7 +117,7 @@ export default function BlogPageClient({ post }: BlogPageClientProps) {
               </Text>
             </VStack>
 
-            {/* Article Title */}
+            {/* Article Title - single H1 for SEO */}
             <VStack
               align={{ base: "center", md: "start" }}
               gap={{ base: 1, md: 2 }}
@@ -134,7 +134,7 @@ export default function BlogPageClient({ post }: BlogPageClientProps) {
                 letterSpacing="tight"
                 textAlign={{ base: "center", md: "left" }}
               >
-                3 QUESTIONS YOU NEED TO ASK BEFORE BUYING RECYCLED CAR PARTS ONLINE
+                {post?.title ?? "Blog Article"}
               </Text>
             </VStack>
           </VStack>
