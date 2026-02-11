@@ -114,8 +114,8 @@ const FilterSection = ({
   return (
     <Box maxW="1400px" mx="auto">
       <VStack gap={6} align="start" bg="gray.900" p={6} borderRadius="md">
-        <Text as="h2" fontSize="2xl" fontWeight="bold" color="red.400">
-          Search parts based on car
+        <Text as="h1" fontSize="2xl" fontWeight="bold" color="red.400">
+          Used Car Parts ΓÇô Search by Vehicle
         </Text>
 
         <chakra.form w="100%" onSubmit={handleSubmit}>

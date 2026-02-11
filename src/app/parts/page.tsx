@@ -6,24 +6,11 @@ import type { Metadata } from "next";
 export const dynamic = "force-dynamic"; // keeps this route fully dynamic
 
 export const metadata: Metadata = {
-  title: "Car Parts - Premium Used Auto Parts | S-Twins",
-  description: "Browse over 100,000 quality used car parts at S-Twins. Premium parts for Chrysler, Jeep, Dodge, and more. All parts include warranty and fast Australia-wide delivery.",
-  alternates: {
-    canonical: "https://stwins.com.au/parts",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-    },
-  },
-  openGraph: {
-    title: "Car Parts - Premium Used Auto Parts | S-Twins",
-    description: "Browse over 100,000 quality used car parts. Premium parts for Chrysler, Jeep, Dodge, and more with warranty.",
-    url: "https://stwins.com.au/parts",
-  },
+  title: "Used Car Parts - Search & Buy | S-Twins Auto Parts",
+  description: "Search over 100,000 quality used car parts. Chrysler, Jeep, Dodge and more. Warranty, Australia-wide delivery. Find your part at S-Twins.",
+  alternates: { canonical: "https://stwins.com.au/parts" },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+  openGraph: { title: "Used Car Parts - S-Twins", url: "https://stwins.com.au/parts", type: "website" },
 };
 
 export default function PartsPage() {
