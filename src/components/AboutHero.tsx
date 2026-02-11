@@ -119,7 +119,7 @@ const AboutHero = () => {
                 lineHeight="1.1"
                 fontFamily="'MADE Outer Sans', sans-serif"
               >
-                Sydney&apos;s leading used car parts specialists
+                Sydney&apos;s leading used car parts specialists.
               </Text>
 
               {/* Black Line */}
