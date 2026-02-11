@@ -324,7 +324,8 @@ const ResolutionHero = () => {
                 color="white"
                 fontFamily={heroFont}
               >
-                VALIDATE WARRANTY
+                <Box as="span" color="#d80c19">Validate </Box>
+                Warranty
               </Text>
             </VStack>
           </Box>
@@ -339,7 +340,7 @@ const ResolutionHero = () => {
             <Box flex="1">
               <VStack align="flex-start" gap={6}>
                 <Box>
-                  <Text as="h2" fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }} fontWeight="bold" color="white" mb={3}>
+                  <Text fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }} fontWeight="bold" color="white" mb={3}>
                     Warranty included on all parts
                   </Text>
                   <Box w="100" h="1" bg="#d80c19" />
