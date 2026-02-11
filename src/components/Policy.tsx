@@ -118,6 +118,11 @@ const Policy = () => {
   return (
     <Box as="section" minH="100vh" bg="gray.800" color="white" py={20}>
       <Box maxW="1400px" mx="auto" px={{ base: 6, md: 8, lg: 12 }}>
+        <VStack align="flex-start" gap={12} mb={12}>
+          <Text as="h1" fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }} fontWeight="bold" color="white">
+            Policy ΓÇô Shipping & Returns
+          </Text>
+        </VStack>
         <Flex
           direction={{ base: "column", lg: "row" }}
           gap={{ base: 16, lg: 24 }}
@@ -128,6 +133,7 @@ const Policy = () => {
               {/* Title */}
               <Box position="relative">
                 <Text
+                  as="h2"
                   fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
                   fontWeight="bold"
                   color="white"
@@ -246,6 +252,7 @@ const Policy = () => {
               {/* Title */}
               <Box position="relative">
                 <Text
+                  as="h2"
                   fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
                   fontWeight="bold"
                   color="white"
