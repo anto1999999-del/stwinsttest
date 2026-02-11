@@ -204,10 +204,9 @@ const ContactHero = () => {
                 lineHeight="75px"
                 textAlign={{ base: "center", lg: "left" }}
                 color="#FFFFFF"
-                mb={1}
                 fontFamily={heroFont}
               >
-                GET IN TOUCH
+                Get in Touch
               </Text>
             </VStack>
           </Box>
@@ -229,7 +228,6 @@ const ContactHero = () => {
               <VStack align="flex-start" gap={8}>
                 <Box>
                   <Text
-                    as="h2"
                     fontSize={{ base: "3xl", md: "4xl" }}
                     fontWeight="bold"
                     color="#d80c19"
@@ -393,7 +391,6 @@ const ContactHero = () => {
             >
               <VStack align="stretch" gap={6}>
                 <Text
-                  as="h2"
                   fontSize={{ base: "2xl", md: "3xl" }}
                   fontWeight="bold"
                   color="#d80c19"
