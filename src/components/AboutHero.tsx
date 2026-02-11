@@ -85,7 +85,7 @@ const AboutHero = () => {
                 textTransform="uppercase"
                 color="#FFFFFF"
               >
-                ABOUT US
+                About Us
               </Text>
             </VStack>
           </Box>
@@ -112,7 +112,6 @@ const AboutHero = () => {
             >
               {/* Main Heading */}
               <Text
-                as="h2"
                 fontSize={{ base: "3xl", md: "4xl", lg: "4xl" }}
                 fontWeight="900"
                 textAlign={{ base: "center", lg: "left" }}
@@ -127,7 +126,6 @@ const AboutHero = () => {
 
               {/* Subheading */}
               <Text
-                as="h3"
                 fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
                 fontWeight="700"
                 textAlign={{ base: "center", lg: "left" }}
@@ -229,7 +227,6 @@ const AboutHero = () => {
             >
               {/* Main Heading */}
               <Text
-                as="h2"
                 fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
                 fontWeight="900"
                 textAlign={{ base: "center", lg: "left" }}
