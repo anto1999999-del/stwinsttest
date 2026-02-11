@@ -5,23 +5,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About Zip - S-Twins Auto Parts",
-  description: "Learn about S-Twins partnership with Zip and our payment solutions for customers.",
-  alternates: {
-    canonical: "https://stwins.com.au/about-zip",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-    },
-  },
-  openGraph: {
-    title: "About Zip - S-Twins Auto Parts",
-    description: "Learn about S-Twins partnership with Zip and our payment solutions.",
-    url: "https://stwins.com.au/about-zip",
-  },
+  description: "S-Twins Auto Parts: quality used car parts with Australia-wide delivery. Learn about our service and Capricorn partnership.",
+  alternates: { canonical: "https://stwins.com.au/about-zip" },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+  openGraph: { title: "About Zip - S-Twins", url: "https://stwins.com.au/about-zip", type: "website" },
 };
 
 export default function AboutZipPage() {

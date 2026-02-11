@@ -58,16 +58,16 @@ const AboutZip = () => {
     <Box as="section" py={20}>
       <Box bg="">
         <Box maxW="1200px" mx="auto" px={{ base: 6, md: 8, lg: 12 }}>
-          {/* Page Title */}
+          {/* Page Title - single H1 for SEO */}
           <Text
+            as="h1"
             fontSize={{ base: "2xl", md: "3xl", lg: "3xl" }}
             fontWeight="bold"
             color="gray.800"
             textAlign="center"
             mb={12}
           >
-            Discover Everything About Zip: Your Guide to Its Features and
-            Services
+            About Zip ΓÇô Your Guide to Features and Services
           </Text>
 
           {/* Hero Section */}
