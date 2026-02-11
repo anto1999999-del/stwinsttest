@@ -75,6 +75,7 @@ const CapricornHero = () => {
           >
             <VStack align={{ base: "center", lg: "flex-start" }} gap={6}>
               <Text
+                as="h1"
                 fontSize={{ base: "4xl", md: "6xl", lg: "6xl" }}
                 fontWeight="bold"
                 lineHeight="0.9"
@@ -82,17 +83,7 @@ const CapricornHero = () => {
                 textAlign={{ base: "center", lg: "left" }}
                 fontFamily={heroFont}
               >
-                CAPRICORN
-              </Text>
-              <Text
-                fontSize={{ base: "4xl", md: "6xl", lg: "6xl" }}
-                fontWeight="bold"
-                lineHeight="0.9"
-                letterSpacing="1.5px"
-                textAlign={{ base: "center", lg: "left" }}
-                fontFamily={heroFont}
-              >
-                SUPPLIER
+                Capricorn Supplier
               </Text>
             </VStack>
           </Box>

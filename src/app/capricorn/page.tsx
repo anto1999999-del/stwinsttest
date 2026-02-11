@@ -3,23 +3,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Capricorn - S-Twins Auto Parts",
-  description: "S-Twins partners with Capricorn to provide quality auto parts and services. Stronger with Capricorn.",
-  alternates: {
-    canonical: "https://stwins.com.au/capricorn",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-    },
-  },
-  openGraph: {
-    title: "Capricorn - S-Twins Auto Parts",
-    description: "S-Twins partners with Capricorn to provide quality auto parts and services.",
-    url: "https://stwins.com.au/capricorn",
-  },
+  description: "S-Twins is a Capricorn member. Quality parts and workshop services for the automotive industry.",
+  alternates: { canonical: "https://stwins.com.au/capricorn" },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+  openGraph: { title: "Capricorn - S-Twins", url: "https://stwins.com.au/capricorn", type: "website" },
 };
 
 export default function Capricorn() {
